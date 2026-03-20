@@ -1,65 +1,26 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Check, ArrowRight, Zap } from 'lucide-react'
-import Card from '../components/ui/Card'
-import Badge from '../components/ui/Badge'
-import Button from '../components/ui/Button'
+import { Check } from 'lucide-react'
 import Footer from '../components/Footer'
 
 const PLANS = [
   {
-    name: 'Free',
-    price: { monthly: 0, annual: 0 },
-    desc: 'Perfect for exploring DxPilot and running your first diagnosis.',
-    badge: null,
-    features: [
-      '3 diagnoses per month',
-      'Basic maturity scoring',
-      'Overview & symptoms report',
-      'PDF export',
-      'Email support',
-    ],
-    cta: 'Get Started Free',
-    ctaVariant: 'outline',
-    to: '/new-diagnosis',
+    name: 'Free', price: { m: 0, a: 0 },
+    desc: 'For exploring DxPilot.',
+    features: ['3 diagnoses / month', 'Basic maturity scoring', 'Overview report', 'PDF export'],
+    cta: 'Get Started', primary: false,
   },
   {
-    name: 'Pro',
-    price: { monthly: 49, annual: 39 },
-    desc: 'For teams that need unlimited diagnoses and advanced insights.',
-    badge: 'Most Popular',
-    features: [
-      'Unlimited diagnoses',
-      'Full 9-dimension scoring',
-      'Root cause analysis',
-      'ROI-backed recommendations',
-      'Implementation roadmap',
-      'KPI & risk tracking',
-      'Priority support',
-      'Team collaboration (3 seats)',
-    ],
-    cta: 'Start Pro Trial',
-    ctaVariant: 'primary',
-    to: '/new-diagnosis',
+    name: 'Pro', price: { m: 49, a: 39 },
+    desc: 'For teams that need more.',
+    features: ['Unlimited diagnoses', 'Full 9-dimension scoring', 'Root cause analysis', 'ROI recommendations', 'Implementation roadmap', 'KPI & risk tracking', 'Priority support'],
+    cta: 'Start Pro Trial', primary: true,
   },
   {
-    name: 'Enterprise',
-    price: { monthly: null, annual: null },
-    desc: 'Custom solutions for large organizations with complex needs.',
-    badge: null,
-    features: [
-      'Everything in Pro',
-      'Unlimited team seats',
-      'Custom AI model fine-tuning',
-      'SSO & advanced security',
-      'API access',
-      'Dedicated success manager',
-      'SLA guarantee',
-      'Custom integrations',
-    ],
-    cta: 'Contact Sales',
-    ctaVariant: 'outline',
-    to: '/new-diagnosis',
+    name: 'Enterprise', price: { m: null, a: null },
+    desc: 'For large organizations.',
+    features: ['Everything in Pro', 'Unlimited seats', 'Custom AI fine-tuning', 'SSO & security', 'API access', 'Dedicated success manager'],
+    cta: 'Contact Sales', primary: false,
   },
 ]
 
@@ -67,90 +28,50 @@ export default function Pricing() {
   const [annual, setAnnual] = useState(true)
 
   return (
-    <div className="min-h-screen bg-[#0B0F1A]">
-      <div className="pt-32 pb-16 px-6 text-center relative">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-blue-500/6 rounded-full blur-3xl pointer-events-none" />
-        <Badge color="blue">Pricing</Badge>
-        <h1 className="text-5xl font-black text-white mt-4 mb-4 tracking-tight">
-          Simple, transparent pricing
-        </h1>
-        <p className="text-slate-400 text-xl max-w-xl mx-auto mb-8">
-          Start free. Upgrade when you need more power.
-        </p>
-
-        {/* Toggle */}
-        <div className="inline-flex items-center gap-3 bg-white/5 rounded-xl p-1">
-          <button onClick={() => setAnnual(false)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${!annual ? 'bg-blue-500 text-white' : 'text-slate-400 hover:text-white'}`}>
-            Monthly
-          </button>
-          <button onClick={() => setAnnual(true)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${annual ? 'bg-blue-500 text-white' : 'text-slate-400 hover:text-white'}`}>
-            Annual
-            <span className="text-xs bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded-full">Save 20%</span>
+    <div className="min-h-screen bg-[#0B0F1A] text-white">
+      <div className="max-w-2xl mx-auto px-6 pt-36 pb-16 text-center">
+        <p className="text-xs text-slate-500 uppercase tracking-widest mb-4">Pricing</p>
+        <h1 className="text-4xl font-black tracking-tight mb-4">Simple pricing</h1>
+        <p className="text-slate-400 text-sm mb-8">Start free. Upgrade when you need more.</p>
+        <div className="inline-flex items-center gap-1 bg-white/5 rounded-lg p-1 text-xs">
+          <button onClick={() => setAnnual(false)} className={`px-4 py-1.5 rounded-md font-medium transition-all ${!annual ? 'bg-white/10 text-white' : 'text-slate-500'}`}>Monthly</button>
+          <button onClick={() => setAnnual(true)} className={`px-4 py-1.5 rounded-md font-medium transition-all flex items-center gap-1.5 ${annual ? 'bg-white/10 text-white' : 'text-slate-500'}`}>
+            Annual <span className="text-emerald-400 text-xs">–20%</span>
           </button>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="max-w-4xl mx-auto px-6 pb-24">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {PLANS.map((plan, i) => (
-            <div key={i} className={`relative ${plan.badge ? 'md:-mt-4' : ''}`}>
-              {plan.badge && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-                  <Badge color="blue"><Zap size={10} className="mr-1" />{plan.badge}</Badge>
-                </div>
-              )}
-              <Card className={`h-full flex flex-col ${plan.badge ? 'border-blue-500/40 shadow-xl shadow-blue-500/10' : ''}`}>
-                <div className="mb-6">
-                  <h3 className="text-white font-bold text-xl mb-1">{plan.name}</h3>
-                  <p className="text-slate-400 text-sm">{plan.desc}</p>
-                </div>
-
-                <div className="mb-6">
-                  {plan.price.monthly === null ? (
-                    <div className="text-3xl font-black text-white">Custom</div>
-                  ) : (
-                    <div className="flex items-end gap-1">
-                      <span className="text-4xl font-black text-white">
-                        ${annual ? plan.price.annual : plan.price.monthly}
-                      </span>
-                      {plan.price.monthly > 0 && (
-                        <span className="text-slate-400 text-sm mb-1.5">/mo</span>
-                      )}
+            <div key={i} className={`rounded-2xl p-6 flex flex-col border ${plan.primary ? 'border-blue-500/40 bg-blue-500/5' : 'border-white/[0.07] bg-[#111827]'}`}>
+              <div className="mb-6">
+                <h3 className="text-white font-bold mb-1">{plan.name}</h3>
+                <p className="text-slate-500 text-xs">{plan.desc}</p>
+              </div>
+              <div className="mb-6">
+                {plan.price.m === null
+                  ? <span className="text-3xl font-black text-white">Custom</span>
+                  : <div className="flex items-end gap-1">
+                      <span className="text-3xl font-black text-white">${annual ? plan.price.a : plan.price.m}</span>
+                      {plan.price.m > 0 && <span className="text-slate-500 text-xs mb-1">/mo</span>}
                     </div>
-                  )}
-                  {annual && plan.price.monthly > 0 && (
-                    <p className="text-slate-500 text-xs mt-1">Billed annually</p>
-                  )}
-                </div>
-
-                <ul className="space-y-3 flex-1 mb-8">
-                  {plan.features.map((f, fi) => (
-                    <li key={fi} className="flex items-start gap-2.5 text-sm text-slate-300">
-                      <Check size={14} className="text-emerald-400 mt-0.5 flex-shrink-0" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-
-                <Link to={plan.to}>
-                  <Button variant={plan.ctaVariant} className="w-full">
-                    {plan.cta} {plan.ctaVariant === 'primary' && <ArrowRight size={14} />}
-                  </Button>
-                </Link>
-              </Card>
+                }
+              </div>
+              <ul className="space-y-2.5 flex-1 mb-6">
+                {plan.features.map((f, fi) => (
+                  <li key={fi} className="flex items-center gap-2 text-xs text-slate-400">
+                    <Check size={12} className="text-emerald-400 flex-shrink-0" /> {f}
+                  </li>
+                ))}
+              </ul>
+              <Link to="/new-diagnosis" className={`text-center text-xs font-semibold py-2.5 rounded-xl transition-all ${plan.primary ? 'bg-blue-500 hover:bg-blue-600 text-white' : 'border border-white/10 text-slate-300 hover:text-white hover:border-white/20'}`}>
+                {plan.cta}
+              </Link>
             </div>
           ))}
         </div>
-
-        {/* FAQ */}
-        <div className="mt-20 text-center">
-          <h2 className="text-2xl font-bold text-white mb-2">Questions?</h2>
-          <p className="text-slate-400 mb-4">We're happy to help. Reach out at <span className="text-blue-400">hello@dxpilot.ai</span></p>
-        </div>
       </div>
-
       <Footer />
     </div>
   )
