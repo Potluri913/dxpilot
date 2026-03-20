@@ -1,21 +1,20 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Check } from 'lucide-react'
 import Footer from '../components/Footer'
 
 const PLANS = [
   {
-    name: 'Free', price: { m: 0, a: 0 }, desc: 'For exploring DxPilot.',
+    name: 'Free', price: { m: '$0', a: '$0' }, desc: 'For exploring DxPilot.',
     features: ['3 diagnoses / month', 'Basic maturity scoring', 'Overview report', 'PDF export'],
     cta: 'Get Started', primary: false,
   },
   {
-    name: 'Pro', price: { m: 49, a: 39 }, desc: 'For teams that need more.',
+    name: 'Pro', price: { m: '$49', a: '$39' }, desc: 'For teams that need more.',
     features: ['Unlimited diagnoses', 'Full 9-dimension scoring', 'Root cause analysis', 'ROI recommendations', 'Implementation roadmap', 'KPI & risk tracking', 'Priority support'],
     cta: 'Start Pro Trial', primary: true,
   },
   {
-    name: 'Enterprise', price: { m: null, a: null }, desc: 'For large organizations.',
+    name: 'Enterprise', price: { m: 'Custom', a: 'Custom' }, desc: 'For large organizations.',
     features: ['Everything in Pro', 'Unlimited seats', 'Custom AI fine-tuning', 'SSO & security', 'API access', 'Dedicated success manager'],
     cta: 'Contact Sales', primary: false,
   },
@@ -25,48 +24,36 @@ export default function Pricing() {
   const [annual, setAnnual] = useState(true)
 
   return (
-    <div className="min-h-screen bg-[#0B0F1A] text-white">
-      <div className="max-w-xl mx-auto px-8 pt-40 pb-16 text-center">
-        <h1 className="text-4xl font-black tracking-tight mb-4">Simple pricing</h1>
-        <p className="text-slate-500 text-sm mb-8">Start free. Upgrade when you need more.</p>
-        <div className="inline-flex items-center gap-1 bg-white/[0.04] rounded-lg p-1 text-xs border border-white/[0.06]">
-          <button onClick={() => setAnnual(false)}
-            className={`px-4 py-1.5 rounded-md font-medium transition-all ${!annual ? 'bg-white/10 text-white' : 'text-slate-500'}`}>
-            Monthly
-          </button>
-          <button onClick={() => setAnnual(true)}
-            className={`px-4 py-1.5 rounded-md font-medium transition-all flex items-center gap-1.5 ${annual ? 'bg-white/10 text-white' : 'text-slate-500'}`}>
-            Annual <span className="text-emerald-400">–20%</span>
-          </button>
+    <div style={{ minHeight: '100vh', background: '#0B0F1A', color: '#F1F5F9' }}>
+      <div style={{ maxWidth: 560, margin: '0 auto', padding: '160px 40px 60px', textAlign: 'center' }}>
+        <h1 style={{ fontSize: 40, fontWeight: 900, letterSpacing: '-0.02em', marginBottom: 12 }}>Simple pricing</h1>
+        <p style={{ color: '#64748b', fontSize: 15, marginBottom: 32 }}>Start free. Upgrade when you need more.</p>
+        <div style={{ display: 'inline-flex', gap: 4, background: 'rgba(255,255,255,0.04)', borderRadius: 10, padding: 4, border: '1px solid rgba(255,255,255,0.06)' }}>
+          {[['Monthly', false], ['Annual  –20%', true]].map(([label, val]) => (
+            <button key={label} onClick={() => setAnnual(val)}
+              style={{ padding: '8px 20px', borderRadius: 8, fontSize: 13, fontWeight: 500, border: 'none', cursor: 'pointer', transition: 'all 0.2s', background: annual === val ? 'rgba(255,255,255,0.1)' : 'transparent', color: annual === val ? '#fff' : '#64748b' }}>
+              {label}
+            </button>
+          ))}
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-8 pb-32">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div style={{ padding: '0 40px 120px' }}>
+        <div className="dx-pricing-grid">
           {PLANS.map((plan, i) => (
-            <div key={i} className={`rounded-2xl p-8 flex flex-col ${plan.primary ? 'bg-blue-500/[0.07] border border-blue-500/30' : 'border border-white/[0.06]'}`}>
-              <div className="mb-8">
-                <h3 className="text-white font-bold mb-1">{plan.name}</h3>
-                <p className="text-slate-500 text-xs">{plan.desc}</p>
+            <div key={i} className={`dx-plan ${plan.primary ? 'dx-plan-featured' : ''}`}>
+              <div className="dx-plan-name">{plan.name}</div>
+              <div className="dx-plan-desc">{plan.desc}</div>
+              <div className="dx-plan-price">
+                {annual ? plan.price.a : plan.price.m}
+                {plan.price.m !== 'Custom' && plan.price.m !== '$0' && <span> /mo</span>}
               </div>
-              <div className="mb-8">
-                {plan.price.m === null
-                  ? <span className="text-3xl font-black">Custom</span>
-                  : <div className="flex items-end gap-1">
-                      <span className="text-3xl font-black">${annual ? plan.price.a : plan.price.m}</span>
-                      {plan.price.m > 0 && <span className="text-slate-500 text-xs mb-1.5">/mo</span>}
-                    </div>
-                }
-              </div>
-              <ul className="space-y-3 flex-1 mb-8">
+              <ul className="dx-plan-features">
                 {plan.features.map((f, fi) => (
-                  <li key={fi} className="flex items-center gap-2.5 text-xs text-slate-400">
-                    <Check size={11} className="text-emerald-400 flex-shrink-0" /> {f}
-                  </li>
+                  <li key={fi} className="dx-plan-feature">{f}</li>
                 ))}
               </ul>
-              <Link to="/new-diagnosis"
-                className={`text-center text-xs font-semibold py-3 rounded-xl transition-all ${plan.primary ? 'bg-blue-500 hover:bg-blue-600 text-white' : 'border border-white/[0.08] text-slate-400 hover:text-white hover:border-white/20'}`}>
+              <Link to="/new-diagnosis" className={`dx-plan-cta ${plan.primary ? 'dx-plan-cta-primary' : 'dx-plan-cta-secondary'}`}>
                 {plan.cta}
               </Link>
             </div>

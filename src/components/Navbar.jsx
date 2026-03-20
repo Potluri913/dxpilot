@@ -13,28 +13,22 @@ export default function Navbar() {
   }, [])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-[#0B0F1A]/95 backdrop-blur-xl border-b border-white/[0.05]' : 'bg-transparent'}`}>
-      <div className="max-w-5xl mx-auto px-8 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-blue-500 rounded-lg flex items-center justify-center">
-            <Activity size={13} className="text-white" />
+    <nav className="dx-nav" style={{ background: scrolled ? 'rgba(11,15,26,0.95)' : 'transparent', backdropFilter: scrolled ? 'blur(20px)' : 'none', borderBottom: scrolled ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+      <div className="dx-nav-inner">
+        <Link to="/" className="dx-logo">
+          <div className="dx-logo-icon">
+            <Activity size={13} color="#fff" />
           </div>
-          <span className="text-white font-bold text-sm">DxPilot</span>
+          <span className="dx-logo-text">DxPilot</span>
         </Link>
 
-        <div className="flex items-center gap-8">
+        <div className="dx-nav-links">
           {[['/', 'Home'], ['/features', 'Features'], ['/pricing', 'Pricing']].map(([to, label]) => (
-            <Link key={to} to={to}
-              className={`text-xs transition-colors ${pathname === to ? 'text-white' : 'text-slate-500 hover:text-slate-300'}`}>
-              {label}
-            </Link>
+            <Link key={to} to={to} className={`dx-nav-link ${pathname === to ? 'active' : ''}`}>{label}</Link>
           ))}
         </div>
 
-        <Link to="/new-diagnosis"
-          className="text-xs bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition-all">
-          Start Free
-        </Link>
+        <Link to="/new-diagnosis" className="dx-btn-nav">Start Free</Link>
       </div>
     </nav>
   )

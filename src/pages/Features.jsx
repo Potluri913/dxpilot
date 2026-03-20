@@ -13,35 +13,32 @@ const FEATURES = [
 
 export default function Features() {
   return (
-    <div className="min-h-screen bg-[#0B0F1A] text-white">
-      <div className="max-w-2xl mx-auto px-8 pt-40 pb-20 text-center">
-        <h1 className="text-4xl font-black tracking-tight mb-4">The full toolkit</h1>
-        <p className="text-slate-500 text-sm">From diagnosis to implementation — everything in one place.</p>
+    <div style={{ minHeight: '100vh', background: '#0B0F1A', color: '#F1F5F9' }}>
+      <div style={{ maxWidth: 560, margin: '0 auto', padding: '160px 40px 60px', textAlign: 'center' }}>
+        <h1 style={{ fontSize: 40, fontWeight: 900, letterSpacing: '-0.02em', marginBottom: 12 }}>The full toolkit</h1>
+        <p style={{ color: '#64748b', fontSize: 15 }}>From diagnosis to implementation — everything in one place.</p>
       </div>
 
-      <div className="max-w-3xl mx-auto px-8 pb-32">
-        <div className="space-y-16">
-          {FEATURES.map((f, i) => (
-            <div key={i} className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-16 border-b border-white/[0.05] last:border-0">
-              <div>
-                <h3 className="text-white font-bold mb-3">{f.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{f.desc}</p>
-              </div>
-              <ul className="space-y-2.5 self-center">
-                {f.points.map((p, pi) => (
-                  <li key={pi} className="flex items-center gap-2.5 text-sm text-slate-400">
-                    <span className="w-1 h-1 rounded-full bg-blue-400 flex-shrink-0" />
-                    {p}
-                  </li>
-                ))}
-              </ul>
+      <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 40px 120px' }}>
+        {FEATURES.map((f, i) => (
+          <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, paddingTop: 48, paddingBottom: 48, borderBottom: i < FEATURES.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+            <div>
+              <div style={{ fontSize: 15, fontWeight: 600, color: '#fff', marginBottom: 10 }}>{f.title}</div>
+              <div style={{ fontSize: 14, color: '#64748b', lineHeight: 1.7 }}>{f.desc}</div>
             </div>
-          ))}
-        </div>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10, alignSelf: 'center' }}>
+              {f.points.map((p, pi) => (
+                <li key={pi} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: '#94a3b8' }}>
+                  <span style={{ width: 4, height: 4, borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }} />
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
 
-        <div className="text-center mt-16">
-          <Link to="/new-diagnosis"
-            className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-7 py-3.5 rounded-xl transition-all text-sm">
+        <div style={{ textAlign: 'center', marginTop: 64 }}>
+          <Link to="/new-diagnosis" className="dx-btn-primary">
             Start Free <ArrowRight size={15} />
           </Link>
         </div>

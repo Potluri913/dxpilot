@@ -2,15 +2,15 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[0.05]">
-      <div className="max-w-5xl mx-auto px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
-        <span className="text-white font-bold text-sm">DxPilot</span>
-        <div className="flex gap-8">
+    <footer className="dx-footer">
+      <div className="dx-footer-inner">
+        <span style={{ color: '#fff', fontWeight: 700, fontSize: 14 }}>DxPilot</span>
+        <div className="dx-footer-links">
           {['Features', 'Pricing', 'Dashboard', 'Privacy'].map(l => (
-            <a key={l} href="#" className="text-xs text-slate-600 hover:text-slate-400 transition-colors">{l}</a>
+            <a key={l} href="#" className="dx-footer-link">{l}</a>
           ))}
         </div>
-        <p className="text-xs text-slate-700">© 2025 DxPilot</p>
+        <span className="dx-footer-copy">© 2025 DxPilot</span>
       </div>
     </footer>
   )

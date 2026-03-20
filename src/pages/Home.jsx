@@ -3,18 +3,9 @@ import { ArrowRight } from 'lucide-react'
 import Footer from '../components/Footer'
 
 const FEATURES = [
-  {
-    title: 'AI Diagnosis',
-    desc: 'Describe your problem in plain language and get a structured, consulting-grade diagnosis in seconds.',
-  },
-  {
-    title: 'Maturity Scoring',
-    desc: 'Understand exactly where your process stands across 9 dimensions with a clear visual score.',
-  },
-  {
-    title: 'Transformation Roadmap',
-    desc: 'Get a phased implementation plan with ROI estimates, timelines, and prioritized next steps.',
-  },
+  { title: 'AI Diagnosis', desc: 'Describe your problem in plain language and get a structured, consulting-grade diagnosis in seconds.' },
+  { title: 'Maturity Scoring', desc: 'Understand exactly where your process stands across 9 dimensions with a clear visual score.' },
+  { title: 'Transformation Roadmap', desc: 'Get a phased implementation plan with ROI estimates, timelines, and prioritized next steps.' },
 ]
 
 const STEPS = [
@@ -25,62 +16,67 @@ const STEPS = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#0B0F1A] text-white">
+    <div style={{ minHeight: '100vh', background: '#0B0F1A', color: '#F1F5F9' }}>
 
       {/* Hero */}
-      <section className="max-w-3xl mx-auto px-8 pt-44 pb-40 text-center">
-        <h1 className="text-5xl md:text-6xl font-black tracking-tight leading-[1.1] mb-6">
+      <div className="dx-hero">
+        <h1>
           Diagnose your processes.<br />
-          <span className="text-blue-400">Fix what matters.</span>
+          <span>Fix what matters.</span>
         </h1>
-        <p className="text-slate-400 text-lg mb-12 max-w-md mx-auto">
-          AI-powered process diagnosis that turns operational chaos into a clear transformation plan.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link to="/new-diagnosis"
-            className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-7 py-3.5 rounded-xl transition-all hover:-translate-y-px text-sm">
+        <p>AI-powered process diagnosis that turns operational chaos into a clear transformation plan.</p>
+        <div className="dx-hero-ctas">
+          <Link to="/new-diagnosis" className="dx-btn-primary">
             Start Diagnosis <ArrowRight size={15} />
           </Link>
-          <Link to="/results/demo"
-            className="text-sm text-slate-400 hover:text-white transition-colors">
+          <Link to="/results/demo" className="dx-btn-ghost">
             View demo report →
           </Link>
         </div>
-      </section>
+      </div>
 
       {/* Features */}
-      <section className="max-w-4xl mx-auto px-8 pb-40">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="dx-section">
+        <div className="dx-features">
           {FEATURES.map((f, i) => (
             <div key={i}>
-              <h3 className="text-white font-semibold mb-3 text-sm">{f.title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{f.desc}</p>
+              <div className="dx-feature-title">{f.title}</div>
+              <div className="dx-feature-desc">{f.desc}</div>
             </div>
           ))}
         </div>
-      </section>
+      </div>
+
+      {/* Divider */}
+      <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 40px' }}>
+        <div style={{ height: 1, background: 'rgba(255,255,255,0.05)' }} />
+      </div>
 
       {/* How it works */}
-      <section className="max-w-3xl mx-auto px-8 pb-40">
-        <div className="grid grid-cols-3 gap-8">
+      <div className="dx-section">
+        <div className="dx-steps">
           {STEPS.map((s, i) => (
-            <div key={i} className="text-center">
-              <div className="text-blue-400 font-black text-xs mb-3 tracking-widest">{s.n}</div>
-              <div className="text-slate-300 text-sm">{s.label}</div>
+            <div key={i}>
+              <div className="dx-step-num">{s.n}</div>
+              <div className="dx-step-label">{s.label}</div>
             </div>
           ))}
         </div>
-      </section>
+      </div>
+
+      {/* Divider */}
+      <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 40px' }}>
+        <div style={{ height: 1, background: 'rgba(255,255,255,0.05)' }} />
+      </div>
 
       {/* CTA */}
-      <section className="max-w-xl mx-auto px-8 pb-40 text-center">
-        <h2 className="text-3xl font-black tracking-tight mb-4">Ready to start?</h2>
-        <p className="text-slate-500 text-sm mb-8">Free to use. Results in under a minute.</p>
-        <Link to="/new-diagnosis"
-          className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-7 py-3.5 rounded-xl transition-all hover:-translate-y-px text-sm">
+      <div className="dx-cta-section">
+        <h2>Ready to start?</h2>
+        <p>Free to use. Results in under a minute.</p>
+        <Link to="/new-diagnosis" className="dx-btn-primary">
           Start Free Diagnosis <ArrowRight size={15} />
         </Link>
-      </section>
+      </div>
 
       <Footer />
     </div>
